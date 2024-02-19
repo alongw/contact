@@ -1,5 +1,5 @@
 import express from 'express'
-import expressJWT from 'express-jwt'
+import { expressjwt } from 'express-jwt'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
@@ -28,7 +28,7 @@ app.use('*', (req: Request, res, next) => {
 })
 
 app.use(
-    expressJWT.expressjwt({ secret: config.jwtSecret, algorithms: ['HS256'] }).unless({
+    expressjwt({ secret: config.jwtSecret, algorithms: ['HS256'] }).unless({
         path: config.jwtUnless.map((e: string) => {
             return new RegExp(`^${config.baseUrl == '/' ? '' : config.baseUrl}${e}`)
         })

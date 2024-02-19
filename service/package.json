@@ -1,9 +1,13 @@
 {
     "name": "nia-contact-service",
     "version": "1.0.0",
-    "main": "index.js",
-    "license": "MIT",
+    "main": "./src/app.ts",
+    "license": "AGPL-3.0-only",
     "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alongw/contact.git"
+    },
     "scripts": {
         "dev": "nodemon --config nodemon.json",
         "start": "tsx ./src/app.ts",
@@ -16,13 +20,17 @@
         "@types/js-yaml": "^4.0.9",
         "@types/node": "^20.11.19",
         "@types/uuid": "^9.0.8",
+        "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^12.0.2",
+        "node-polyfill-webpack-plugin": "^3.0.0",
         "ts-loader": "^9.5.1",
         "ts-node": "^10.9.2",
         "tsconfig-paths": "^4.2.0",
         "tsx": "^4.7.1",
         "typescript": "^5.3.3",
         "webpack": "^5.90.2",
-        "webpack-cli": "^5.1.4"
+        "webpack-cli": "^5.1.4",
+        "webpack-node-externals": "^3.0.0"
     },
     "dependencies": {
         "body-parser": "^1.20.2",
