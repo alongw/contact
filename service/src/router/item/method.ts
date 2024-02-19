@@ -71,7 +71,9 @@ router.get('/', async (req, res) => {
         res.send({
             code: 200,
             msg: '获取所有方法成功',
-            data: result.map((e) => e.toJSON())
+            data: {
+                list: result.map((e) => e.toJSON())
+            }
         })
     } catch (error) {
         res.send({ code: 500, msg: '获取所有方法失败' })
