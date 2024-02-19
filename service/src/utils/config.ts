@@ -14,6 +14,17 @@ const defaultConfig = {
         appid: 'appid',
         appsecret: 'admin123',
         redirectUrl: 'https://www.gov.cn/'
+    },
+    email: {
+        host: 'wh.gov',
+        port: 465,
+        secure: true,
+        from: 'Admin<admin@wh.gov>',
+        to: '911@wh.gov',
+        auth: {
+            user: 'admin',
+            pass: 'admin123'
+        }
     }
 }
 

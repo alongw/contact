@@ -1,6 +1,8 @@
 import { Router } from 'express'
 
 import { Item, Method } from '@/database/table'
+import { checkTicket } from '@/utils/captcha'
+import { isMail, sendMail } from '@/utils/mail'
 
 import type { MethodTable } from '@/types/table'
 import type { Request } from '@/types/request'
@@ -9,6 +11,82 @@ const router = Router()
 
 router.use('/login', async (req, res, next) =>
     (await import('./login')).default(req, res, next)
+)
+
+router.post(
+    '/form',
+    async (
+        req: Request<{
+            captcha: {
+                ticket: string | null
+                randstr: string | null
+            } | null
+            title: string | null
+            email: string | null
+            nickname: string | null
+            text: string | null
+        }>,
+        res
+    ) => {
+        if (
+            !req.body?.captcha?.ticket ||
+            !req.body?.captcha?.randstr ||
+            !req.body?.title ||
+            !req.body?.email ||
+            !req.body?.nickname ||
+            !req.body?.text
+        ) {
+            return res.send({
+                status: 400,
+                msg: '请求参数错误'
+            })
+        }
+        // 效验验证码
+        const result = await checkTicket(
+            req.body.captcha.ticket,
+            req.body.captcha.randstr
+        )
+
+        if (result.status !== 200) {
+            return res.send({
+                status: 400,
+                msg: result.msg
+            })
+        }
+
+        if (!isMail(req.body.email)) {
+            return res.send({
+                status: 400,
+                msg: '邮箱格式错误'
+            })
+        }
+
+        // 发送邮件
+        try {
+            sendMail(
+                'Nia - Contact 在线表单',
+                `
+            <h1> 你在 Nia - Contact 在线表单中收到了新的留言 </h1>
+            <div>
+                title: ${JSON.stringify(req.body.title)} <br />
+                nickname: ${JSON.stringify(req.body.nickname)} <br />
+                email: ${JSON.stringify(req.body.email)} <br />
+                message: ${JSON.stringify(req.body.text)}
+            </div>
+            `
+            )
+        } catch (error) {
+            return res.send({
+                status: 400,
+                msg: '邮件发送失败'
+            })
+        }
+
+        return res.send({
+            status: 200,
+            msg: '留言成功，如果邮箱有效，我们将尽快回复！'
+        })
+    }
 )
 
 router.post(
