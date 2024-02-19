@@ -2,7 +2,6 @@ import { createTransport } from 'nodemailer'
 
 import config from '@/utils/config'
 
-import type Mail from 'nodemailer/lib/mailer'
 import type SMTPTransport from 'nodemailer/lib/smtp-transport'
 
 export const isMail = (mail: string) => {

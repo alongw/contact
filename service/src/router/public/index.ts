@@ -41,6 +41,27 @@ router.post(
                 msg: '请求参数错误'
             })
         }
+
+        // 长度不能超过 500 字符
+        if (
+            req.body.title.length > 50 ||
+            req.body.text.length > 500 ||
+            req.body.nickname.length > 30 ||
+            req.body.email.length > 30
+        ) {
+            return res.send({
+                status: 400,
+                msg: '太长了...不..不行...!!'
+            })
+        }
+
+        if (!isMail(req.body.email)) {
+            return res.send({
+                status: 400,
+                msg: '邮箱格式错误'
+            })
+        }
+
         // 效验验证码
         const result = await checkTicket(
             req.body.captcha.ticket,
@@ -54,19 +75,12 @@ router.post(
             })
         }
 
-        if (!isMail(req.body.email)) {
-            return res.send({
-                status: 400,
-                msg: '邮箱格式错误'
-            })
-        }
-
         // 发送邮件
         try {
             sendMail(
                 'Nia - Contact 在线表单',
                 `
-            <h1> 你在 Nia - Contact 在线表单中收到了新的留言 </h1>
+            <h1> 您在 Nia - Contact 在线表单中收到了新的留言 </h1>
             <div>
                 title: ${JSON.stringify(req.body.title)} <br />
                 nickname: ${JSON.stringify(req.body.nickname)} <br />
