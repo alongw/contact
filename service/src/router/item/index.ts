@@ -92,7 +92,14 @@ router.delete(
 // 查
 router.get('/', async (req, res) => {
     try {
-        const result = await Item.findAll()
+        const result = await Item.findAll({
+            include: [
+                {
+                    model: Method,
+                    as: 'methods'
+                }
+            ]
+        })
         return res.send({
             code: 200,
             msg: '查询成功',

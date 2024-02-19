@@ -122,8 +122,8 @@ export const ItemMethod = db.define<Model<ItemMethodTable>>('item_method', {
     }
 })
 
-Item.belongsToMany(Method, { through: ItemMethod })
-Method.belongsToMany(Item, { through: ItemMethod })
+Item.belongsToMany(Method, { through: ItemMethod, foreignKey: 'iid' })
+Method.belongsToMany(Item, { through: ItemMethod, foreignKey: 'mid' })
 
 if (config.syncDatabase === true) {
     logger.info('开始同步数据库，如果您不需要，请在配置文件中禁用')
