@@ -104,17 +104,12 @@ router.put(
             }
 
             // 修改
-            await Method.update(
-                {
-                    name: req.body.name ? req.body.name : result.toJSON().name,
-                    value: req.body.value ? req.body.value : result.toJSON().value
-                },
-                {
-                    where: {
-                        mid: req.body.mid
-                    }
-                }
-            )
+            await result.update({
+                name: req.body.name ? req.body.name : result.toJSON().name,
+                value: req.body.value ? req.body.value : result.toJSON().value
+            })
+
+            return res.send({ code: 200, msg: '修改成功' })
         } catch (error) {
             return res.send({ code: 500, msg: '修改失败' })
         }
