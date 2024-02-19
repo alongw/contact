@@ -62,6 +62,11 @@ app.use(
     }
 )
 
-app.listen(config.listenPort, () => {
+app.use(config.baseUrl, async (req, res, next) =>
+    (await import('@/router/index')).default(req, res, next)
+)
+
+app.listen(config.listenPort, async () => {
+    await import('@/database/table')
     logger.info(`nia - contact 服务器正在端口 ${config.listenPort} 上运行`)
 })

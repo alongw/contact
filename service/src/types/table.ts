@@ -8,10 +8,11 @@ export interface UserTable {
     uid: string
     name: string
     avatar: string
+    group: number
 }
 
 export interface UserLoginTable {
-    id: string
+    id: number
     state: string
     exp: number
     use: boolean

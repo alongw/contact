@@ -56,6 +56,7 @@ const activeKey = ref(['1'])
 <style scoped lang="less">
 .home {
     margin: 0 auto;
+    margin-top: 50px;
     width: 100%;
     max-width: 600px;
 }

@@ -1,4 +1,9 @@
 import { DataTypes, Model } from 'sequelize'
+import dayjs from 'dayjs'
+
+import config from '@/utils/config'
+
+import logger from '@/utils/log'
 
 import db from '@/utils/db'
 
@@ -40,22 +45,29 @@ export const User = db.define<Model<UserTable>>('user', {
     avatar: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    group: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
 })
 
 export const UserLogin = db.define<Model<UserLoginTable>>('user_login', {
     id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
     },
     state: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4
     },
     exp: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: dayjs().add(10, 'minute').valueOf()
     },
     use: {
         type: DataTypes.BOOLEAN,
@@ -109,5 +121,17 @@ export const ItemMethod = db.define<Model<ItemMethodTable>>('item_method', {
     }
 })
 
-Item.belongsToMany(Method, { through: ItemMethod, sourceKey: 'mid', foreignKey: 'iid' })
-Method.belongsToMany(Item, { through: ItemMethod, sourceKey: 'iid', foreignKey: 'mid' })
+Item.belongsToMany(Method, { through: ItemMethod })
+Method.belongsToMany(Item, { through: ItemMethod })
+
+if (config.syncDatabase === true) {
+    logger.info('开始同步数据库，如果您不需要，请在配置文件中禁用')
+    try {
+        await db.sync({ alter: true })
+        logger.info('数据库同步成功')
+    } catch (error) {
+        logger.error('数据库同步失败')
+        logger.error(error)
+        process.exit(0)
+    }
+}

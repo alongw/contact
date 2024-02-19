@@ -9,7 +9,12 @@ const defaultConfig = {
     jwtSecret: '77f469e6c2dca870294969b4c552b541',
     jwtExpire: 60 * 60 * 12,
     jwtUnless: ['/public'],
-    baseUrl: '/api'
+    baseUrl: '/api',
+    nyaAccount: {
+        appid: 'appid',
+        appsecret: 'admin123',
+        redirectUrl: 'https://www.gov.cn/'
+    }
 }
 
 if (!fse.existsSync('./config.yaml')) {
