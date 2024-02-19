@@ -48,7 +48,8 @@ export const User = db.define<Model<UserTable>>('user', {
     },
     group: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
+        defaultValue: 0
     }
 })
 

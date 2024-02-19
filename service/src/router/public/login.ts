@@ -6,7 +6,7 @@ import token from '@/utils/token'
 import config from '@/utils/config'
 import logger from '@/utils/log'
 import { getToken } from '@/utils/account'
-import { UserLogin } from '@/database/table'
+import { UserLogin, User } from '@/database/table'
 
 import type { Request } from '@/types/request'
 
@@ -88,6 +88,26 @@ router.post(
                 msg: '无效的 code'
             })
         }
+
+        // 写入账号
+        try {
+            await User.findOrCreate({
+                where: {
+                    uid: result.uid
+                },
+                defaults: {
+                    uid: result.uid,
+                    name: result.nickname,
+                    avatar: result.avatar
+                }
+            })
+        } catch (error) {
+            return res.send({
+                status: 500,
+                msg: '写入账号出错'
+            })
+        }
+
         // 下发 token
         res.send({
             status: 200,

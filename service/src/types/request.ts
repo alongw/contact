@@ -23,5 +23,5 @@ export interface Request<
     query: Q
     body: B
     userIp: string
-    user: User
+    auth: User
 }
