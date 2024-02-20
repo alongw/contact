@@ -25,6 +25,7 @@ router.post(
             email: string | null
             nickname: string | null
             text: string | null
+            from: string | null
         }>,
         res
     ) => {
@@ -34,7 +35,8 @@ router.post(
             !req.body?.title ||
             !req.body?.email ||
             !req.body?.nickname ||
-            !req.body?.text
+            !req.body?.text ||
+            !req.body?.from
         ) {
             return res.send({
                 status: 400,
@@ -47,7 +49,8 @@ router.post(
             req.body.title.length > 50 ||
             req.body.text.length > 500 ||
             req.body.nickname.length > 30 ||
-            req.body.email.length > 30
+            req.body.email.length > 30 ||
+            req.body.from.length > 100
         ) {
             return res.send({
                 status: 400,
@@ -85,6 +88,12 @@ router.post(
                 title: ${JSON.stringify(req.body.title)} <br />
                 nickname: ${JSON.stringify(req.body.nickname)} <br />
                 email: ${JSON.stringify(req.body.email)} <br />
+                ip: ${JSON.stringify(
+                    (req.headers['x-forwarded-for'] as string) ||
+                        req.socket?.remoteAddress
+                )} <br />
+                ua: ${JSON.stringify(req.headers['user-agent'])} <br />
+                from: ${JSON.stringify(req.body.from)} <br />
                 message: ${JSON.stringify(req.body.text)}
             </div>
             `

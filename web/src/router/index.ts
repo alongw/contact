@@ -7,6 +7,19 @@ const router = createRouter({
             path: '/',
             name: 'Home',
             component: () => import('@/page/Home/Home.vue')
+        },
+        {
+            path: '/form',
+            name: 'Form',
+            component: () => import('@/page/Form/Form.vue'),
+            redirect: '/form/null',
+            children: [
+                {
+                    path: '/form/:from',
+                    name: 'FormDetail',
+                    component: () => import('@/page/Form/Form.vue')
+                }
+            ]
         }
     ]
 })
