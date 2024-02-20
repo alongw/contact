@@ -6,8 +6,6 @@ defineOptions({
 })
 
 const activeKey = ref(['1'])
-
-const login = async () => {}
 </script>
 
 <template>

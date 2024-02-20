@@ -20,6 +20,11 @@ const router = createRouter({
                     component: () => import('@/page/Form/Form.vue')
                 }
             ]
+        },
+        {
+            path: '/login_back',
+            name: 'Login',
+            component: () => import('@/page/Login/Login.vue')
         }
     ]
 })
