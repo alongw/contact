@@ -67,8 +67,7 @@ export const UserLogin = db.define<Model<UserLoginTable>>('user_login', {
     },
     exp: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: dayjs().add(10, 'minute').valueOf()
+        allowNull: false
     },
     use: {
         type: DataTypes.BOOLEAN,

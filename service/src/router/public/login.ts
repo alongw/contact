@@ -16,7 +16,9 @@ const router = Router()
 router.get('/', async (req, res) => {
     // 创建 state
     try {
-        const result = await UserLogin.create()
+        const result = await UserLogin.create({
+            exp: dayjs().add(10, 'minute').valueOf()
+        })
         return res.send({
             status: 200,
             msg: '获取 state 成功',
