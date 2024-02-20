@@ -6,6 +6,8 @@ defineOptions({
 })
 
 const activeKey = ref(['1'])
+
+const login = async () => {}
 </script>
 
 <template>
@@ -46,9 +48,9 @@ const activeKey = ref(['1'])
 
             <a-collapse-panel key="3" header="在线表单 (Online Form)">
                 <a-space direction="vertical">
-                    <a-button @click="$router.push('/form/redirect.home')" type="primary"
-                        >前往使用</a-button
-                    >
+                    <a-button @click="$router.push('/form/redirect.home')" type="primary">
+                        前往使用
+                    </a-button>
                 </a-space>
             </a-collapse-panel>
         </a-collapse>
