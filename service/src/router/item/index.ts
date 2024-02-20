@@ -21,6 +21,7 @@ router.post(
     async (
         req: Request<{
             name: string | null
+            desc: string | null
         }>,
         res
     ) => {
@@ -51,14 +52,15 @@ router.post(
         try {
             await Item.create({
                 name: req.body.name,
-                iid: await getUUID()
+                iid: await getUUID(),
+                desc: req.body.desc ? req.body.desc : null
             })
         } catch (error) {
             logger.error(error)
-            return res.send({ code: 500, msg: '创建失败' })
+            return res.send({ status: 500, msg: '创建失败' })
         }
 
-        return res.send({ code: 200, msg: '创建成功' })
+        return res.send({ status: 200, msg: '创建成功' })
     }
 )
 
@@ -119,11 +121,12 @@ router.put(
         req: Request<{
             iid: string | null
             name: string | null
+            desc: string | null
         }>,
         res
     ) => {
-        if (!req.body?.iid || !req.body?.name) {
-            return res.send({ code: 400, msg: 'iid 或 name 不能为空' })
+        if (!req.body?.iid || !req.body?.name || !req.body?.desc) {
+            return res.send({ code: 400, msg: '参数不能为空' })
         }
 
         try {

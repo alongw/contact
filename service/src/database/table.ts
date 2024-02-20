@@ -1,5 +1,4 @@
 import { DataTypes, Model } from 'sequelize'
-import dayjs from 'dayjs'
 
 import config from '@/utils/config'
 
@@ -84,6 +83,10 @@ export const Item = db.define<Model<ItemTable>>('item', {
     name: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    desc: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 })
 
@@ -101,6 +104,15 @@ export const Method = db.define<Model<MethodTable>>('method', {
     value: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    img: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    showType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'text'
     }
 })
 

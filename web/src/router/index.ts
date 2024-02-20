@@ -25,6 +25,29 @@ const router = createRouter({
             path: '/login_back',
             name: 'Login',
             component: () => import('@/page/Login/Login.vue')
+        },
+        {
+            path: '/i',
+            name: 'Item',
+            component: () => import('@/page/Item/Item.vue'),
+            redirect: {
+                path: '/',
+                query: {
+                    from: 'item.null.redirect'
+                }
+            },
+            children: [
+                {
+                    path: '/i/:iid',
+                    name: 'ItemDetail',
+                    component: () => import('@/page/Item/Item.vue')
+                }
+            ]
+        },
+        {
+            path: '/admin',
+            name: 'Admin',
+            component: () => import('@/page/Admin/Admin.vue')
         }
     ]
 })

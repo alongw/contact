@@ -15,10 +15,17 @@ router.post(
         req: Request<{
             name: string | null
             value: string | null
+            img: string | null
+            showType: string | null
         }>,
         res
     ) => {
-        if (!req.body?.name || !req.body?.value) {
+        if (
+            !req.body?.name ||
+            !req.body?.value ||
+            !req.body?.img ||
+            !req.body?.showType
+        ) {
             return res.send({ code: 400, msg: '参数错误' })
         }
 
@@ -88,6 +95,8 @@ router.put(
             mid: number | null
             name: string | null
             value: string | null
+            showType: string | null
+            img: string | null
         }>,
         res
     ) => {
@@ -108,7 +117,9 @@ router.put(
             // 修改
             await result.update({
                 name: req.body.name ? req.body.name : result.toJSON().name,
-                value: req.body.value ? req.body.value : result.toJSON().value
+                value: req.body.value ? req.body.value : result.toJSON().value,
+                img: req.body.img ? req.body.img : result.toJSON().img,
+                showType: req.body.showType ? req.body.showType : result.toJSON().showType
             })
 
             return res.send({ code: 200, msg: '修改成功' })

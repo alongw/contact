@@ -21,12 +21,15 @@ export interface UserLoginTable {
 export interface ItemTable {
     iid: string
     name: string
+    desc: string
 }
 
 export interface MethodTable {
     mid: number
     name: string
     value: string
+    img: string
+    showType: string
 }
 
 export interface ItemMethodTable {

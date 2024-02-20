@@ -7,10 +7,13 @@ export const getItem = (data: { iid: string }) => {
         Response<{
             iid: string
             name: string
+            desc: string
             methodList: {
                 mid: number
                 name: string
                 value: string
+                showType: string
+                img: string
             }[]
         }>
     >('/public/getItem', data)
@@ -52,7 +55,7 @@ export const login = (data: { code: string; state: string }) => {
 
 // auth
 
-export const addItem = (data: { name: string }) => {
+export const addItem = (data: { name: string; desc: string }) => {
     return axios.post<Response>('/item', data)
 }
 
@@ -68,12 +71,15 @@ export const getItemList = () => {
             list: {
                 iid: string
                 name: string
+                desc: string
                 createdAt: string
                 updatedAt: string
                 methods: {
                     mid: number
                     name: string
                     value: string
+                    showType: string
+                    img: string
                     createdAt: string
                     updatedAt: string
                     item_method: {
@@ -100,6 +106,8 @@ export const getItemAllMethods = (data: { iid: string }) => {
                 mid: number
                 name: string
                 value: string
+                showType: string
+                img: string
                 createdAt: string
                 updatedAt: string
                 item_method: {
@@ -114,6 +122,8 @@ export const getItemAllMethods = (data: { iid: string }) => {
                 mid: number
                 name: string
                 value: string
+                showType: string
+                img: string
                 createdAt: string
                 updatedAt: string
                 item_method: {
@@ -140,7 +150,12 @@ export const editItemMethod = (data: {
     })
 }
 
-export const addMethod = (data: { name: string; value: string }) => {
+export const addMethod = (data: {
+    name: string
+    value: string
+    img: string
+    showType: string
+}) => {
     return axios.post<Response>('/item/method', data)
 }
 
@@ -157,6 +172,8 @@ export const getAllMethod = () => {
                 mid: number
                 name: string
                 value: string
+                img: string
+                showType: string
                 createdAt: string
                 updatedAt: string
             }[]
@@ -164,6 +181,12 @@ export const getAllMethod = () => {
     >('/item/method')
 }
 
-export const editMethod = (data: { mid: number; name: string; value: string }) => {
+export const editMethod = (data: {
+    mid: number
+    name: string
+    value: string
+    img: string
+    showType: string
+}) => {
     return axios.put<Response>('/item/method', data)
 }

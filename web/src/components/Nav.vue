@@ -57,7 +57,10 @@ onMounted(() => {
         <a-button v-if="!isLogin" @click="login" :loading="loginBtnLoading" type="link">
             登录
         </a-button>
-        <a-button v-else @click="logout" type="link">退出登录</a-button>
+        <div v-else>
+            <a-button @click="$router.push('/admin')" type="link">管理后台</a-button>
+            <a-button @click="logout" type="link">退出登录</a-button>
+        </div>
     </div>
 </template>
 
