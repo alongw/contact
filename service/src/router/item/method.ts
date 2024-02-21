@@ -20,26 +20,23 @@ router.post(
         }>,
         res
     ) => {
-        if (
-            !req.body?.name ||
-            !req.body?.value ||
-            !req.body?.img ||
-            !req.body?.showType
-        ) {
-            return res.send({ code: 400, msg: '参数错误' })
+        if (!req.body?.name || !req.body?.value || !req.body?.showType) {
+            return res.send({ status: 400, msg: '参数错误' })
         }
 
         // 增加新的方法
         try {
             await Method.create({
                 name: req.body.name,
-                value: req.body.value
+                value: req.body.value,
+                showType: req.body.showType,
+                img: req.body.img ? req.body.img : null
             })
         } catch (error) {
-            return res.send({ code: 500, msg: '新增失败' })
+            return res.send({ status: 500, msg: '新增失败' })
         }
 
-        return res.send({ code: 200, msg: '新增成功' })
+        return res.send({ status: 200, msg: '新增成功' })
     }
 )
 
@@ -53,7 +50,7 @@ router.delete(
         res
     ) => {
         if (!req.body?.mid) {
-            return res.send({ code: 400, msg: '参数错误' })
+            return res.send({ status: 400, msg: '参数错误' })
         }
 
         // 删除方法
@@ -64,10 +61,10 @@ router.delete(
                 }
             })
         } catch (error) {
-            return res.send({ code: 500, msg: '删除失败' })
+            return res.send({ status: 500, msg: '删除失败' })
         }
 
-        return res.send({ code: 200, msg: '删除成功' })
+        return res.send({ status: 200, msg: '删除成功' })
     }
 )
 
@@ -76,14 +73,14 @@ router.get('/', async (req, res) => {
     try {
         const result = await Method.findAll()
         res.send({
-            code: 200,
+            status: 200,
             msg: '获取所有方法成功',
             data: {
                 list: result.map((e) => e.toJSON())
             }
         })
     } catch (error) {
-        res.send({ code: 500, msg: '获取所有方法失败' })
+        res.send({ status: 500, msg: '获取所有方法失败' })
     }
 })
 
@@ -101,7 +98,7 @@ router.put(
         res
     ) => {
         if (!req.body?.mid) {
-            return res.send({ code: 400, msg: '参数错误' })
+            return res.send({ status: 400, msg: '参数错误' })
         }
         try {
             const result = await Method.findOne({
@@ -111,7 +108,7 @@ router.put(
             })
 
             if (!result) {
-                return res.send({ code: 404, msg: '方法不存在' })
+                return res.send({ status: 404, msg: '方法不存在' })
             }
 
             // 修改
@@ -122,9 +119,9 @@ router.put(
                 showType: req.body.showType ? req.body.showType : result.toJSON().showType
             })
 
-            return res.send({ code: 200, msg: '修改成功' })
+            return res.send({ status: 200, msg: '修改成功' })
         } catch (error) {
-            return res.send({ code: 500, msg: '修改失败' })
+            return res.send({ status: 500, msg: '修改失败' })
         }
     }
 )

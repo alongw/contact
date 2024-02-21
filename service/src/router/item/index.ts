@@ -26,7 +26,7 @@ router.post(
         res
     ) => {
         if (!req.body?.name) {
-            return res.send({ code: 400, msg: 'name 不能为空' })
+            return res.send({ status: 400, msg: '参数不足' })
         }
 
         const getUUID = async () => {
@@ -74,7 +74,7 @@ router.delete(
         res
     ) => {
         if (!req.body?.iid) {
-            return res.send({ code: 400, msg: 'iid 不能为空' })
+            return res.send({ status: 400, msg: 'iid 不能为空' })
         }
         try {
             await Item.destroy({
@@ -84,10 +84,10 @@ router.delete(
             })
         } catch (error) {
             logger.error(error)
-            return res.send({ code: 500, msg: '删除失败' })
+            return res.send({ status: 500, msg: '删除失败' })
         }
 
-        return res.send({ code: 200, msg: '删除成功' })
+        return res.send({ status: 200, msg: '删除成功' })
     }
 )
 
@@ -103,14 +103,14 @@ router.get('/', async (req, res) => {
             ]
         })
         return res.send({
-            code: 200,
+            status: 200,
             msg: '查询成功',
             data: {
                 list: result.map((e) => e.toJSON())
             }
         })
     } catch (error) {
-        return res.send({ code: 500, msg: '查询失败' })
+        return res.send({ status: 500, msg: '查询失败' })
     }
 })
 
@@ -126,7 +126,7 @@ router.put(
         res
     ) => {
         if (!req.body?.iid || !req.body?.name || !req.body?.desc) {
-            return res.send({ code: 400, msg: '参数不能为空' })
+            return res.send({ status: 400, msg: '参数不能为空' })
         }
 
         try {
@@ -137,7 +137,7 @@ router.put(
             })
 
             if (!result) {
-                return res.send({ code: 404, msg: '未找到' })
+                return res.send({ status: 404, msg: '未找到' })
             }
 
             await result.update({
@@ -145,10 +145,10 @@ router.put(
             })
         } catch (error) {
             logger.error(error)
-            return res.send({ code: 500, msg: '更新失败' })
+            return res.send({ status: 500, msg: '更新失败' })
         }
 
-        return res.send({ code: 200, msg: '更新成功' })
+        return res.send({ status: 200, msg: '更新成功' })
     }
 )
 
@@ -164,7 +164,7 @@ router.post(
         res
     ) => {
         if (!req.body?.iid) {
-            return res.send({ code: 400, msg: 'iid 不能为空' })
+            return res.send({ status: 400, msg: 'iid 不能为空' })
         }
 
         // 查找项
@@ -175,7 +175,7 @@ router.post(
                 }
             })
             if (!result) {
-                return res.send({ code: 404, msg: '未找到项' })
+                return res.send({ status: 404, msg: '未找到项' })
             }
 
             // 获取项和方法的关联
@@ -202,7 +202,7 @@ router.post(
             )
 
             return res.send({
-                code: 200,
+                status: 200,
                 msg: '查询正在使用的方法成功',
                 data: {
                     useList: useMethod,
@@ -211,7 +211,7 @@ router.post(
             })
         } catch (error) {
             logger.error(error)
-            return res.send({ code: 500, msg: '查询失败' })
+            return res.send({ status: 500, msg: '查询失败' })
         }
     }
 )
@@ -228,7 +228,7 @@ router.post(
         res
     ) => {
         if (!req.body?.iid || !req.body.mid || !req.body.method) {
-            return res.send({ code: 400, msg: 'iid 或 mid 或 method 不能为空' })
+            return res.send({ status: 400, msg: 'iid 或 mid 或 method 不能为空' })
         }
 
         try {
@@ -239,7 +239,7 @@ router.post(
                 }
             })
             if (!result) {
-                return res.send({ code: 404, msg: '未找到项' })
+                return res.send({ status: 404, msg: '未找到项' })
             }
 
             // 检测方法是否存在
@@ -254,7 +254,7 @@ router.post(
             })
 
             if (result2.length !== req.body.mid.split(',').length) {
-                return res.send({ code: 404, msg: '未找到方法' })
+                return res.send({ status: 404, msg: '未找到方法' })
             }
 
             if (req.body.method === 'add') {
@@ -270,7 +270,7 @@ router.post(
                     }
                 })
                 if (result3.length > 0) {
-                    return res.send({ code: 400, msg: '已存在' })
+                    return res.send({ status: 400, msg: '已存在' })
                 } else {
                     // 添加
                     const midList = req.body.mid.split(',')
@@ -281,7 +281,7 @@ router.post(
                         })
                     }
 
-                    return res.send({ code: 200, msg: '更新成功' })
+                    return res.send({ status: 200, msg: '更新成功' })
                 }
             }
             if (req.body.method === 'remove') {
@@ -294,13 +294,13 @@ router.post(
                     })
                 }
 
-                return res.send({ code: 200, msg: '更新成功' })
+                return res.send({ status: 200, msg: '更新成功' })
             }
 
-            return res.send({ code: 400, msg: '方法错误' })
+            return res.send({ status: 400, msg: '方法错误' })
         } catch (error) {
             logger.error(error)
-            return res.send({ code: 500, msg: '更新失败' })
+            return res.send({ status: 500, msg: '更新失败' })
         }
     }
 )

@@ -95,7 +95,7 @@ export const getItemList = () => {
     >('/item')
 }
 
-export const editItemName = (data: { iid: string; name: string }) => {
+export const editItem = (data: { iid: string; name: string; desc: string }) => {
     return axios.put<Response>('/item', data)
 }
 
