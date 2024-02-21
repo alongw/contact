@@ -40,6 +40,7 @@ const onFinish = async () => {
     }
     form.name = ''
     form.desc = ''
+    fetch()
     message.success('新增成功')
 }
 
