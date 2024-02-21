@@ -77,7 +77,7 @@ onMounted(async () => {
                 ）
             </p>
 
-            <p>{{ data?.desc }}</p>
+            <p v-if="data?.desc">留言：{{ data?.desc }}</p>
 
             <a-descriptions
                 title="可用的联系方式"
@@ -92,11 +92,26 @@ onMounted(async () => {
                     :key="item.mid"
                     :label="item.name"
                 >
-                    <a-typography-text copyable>{{ item.value }}</a-typography-text>
+                    <div v-if="item.showType === 'qrcode'">
+                        <a-qrcode :value="item.value" style="max-width: 100%" />
+                        <a-typography-text copyable>{{ item.value }}</a-typography-text>
+                    </div>
+                    <div v-else-if="item.showType === 'link'">
+                        <a-typography-link :href="item.value" target="_blank" copyable>
+                            {{ item.value }}
+                        </a-typography-link>
+                    </div>
+                    <div v-else-if="item.showType === 'img'">
+                        <a-image :src="item.img" style="max-width: 100%" />
+                        <a-typography-text copyable>{{ item.value }}</a-typography-text>
+                    </div>
+                    <div v-else>
+                        <a-typography-text copyable>{{ item.value }}</a-typography-text>
+                    </div>
                 </a-descriptions-item>
             </a-descriptions>
             <div class="back">
-                <p>返回首页可查看基础联系方式 （在线表单、邮箱、Telegram）</p>
+                <p>返回首页可查看基础联系方式 （在线表单、邮箱、Telegram 等）</p>
                 <a-space>
                     <a-button type="primary" @click="$router.push('/')">
                         返回首页

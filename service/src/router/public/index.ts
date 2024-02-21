@@ -155,11 +155,14 @@ router.post(
             data: {
                 iid: item.iid,
                 name: item.name,
+                desc: item.desc,
                 methodList: item.methods.map((method: MethodTable) => {
                     return {
                         mid: method.mid,
                         name: method.name,
-                        value: method.value
+                        value: method.value,
+                        showType: method.showType,
+                        img: method.img
                     }
                 })
             }
