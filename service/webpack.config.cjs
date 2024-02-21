@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     mode: 'production',
+    // mode: 'development',
     entry: './src/app.ts',
     output: {
         filename: 'app.js',
@@ -60,5 +61,9 @@ module.exports = {
                 }
             ]
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: false
+    },
+    target: 'node'
 }
