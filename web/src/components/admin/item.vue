@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 import dayjs from 'dayjs'
 
-import { message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 
 import {
     addItem,
@@ -17,6 +18,8 @@ import {
 defineOptions({
     name: 'ItemComponent'
 })
+
+const router = useRouter()
 
 const form = reactive({
     name: '',
@@ -99,7 +102,19 @@ const fetch = async () => {
     dataSource.value = []
     const { data: result } = await getItemList()
     if (result.status !== 200) {
-        return message.error(result.msg)
+        return Modal.error({
+            title: '错误',
+            content: result.msg,
+            onOk: () => {
+                router.push({
+                    path: '/',
+                    query: {
+                        from: 'admin.item.error.nopermission'
+                    }
+                })
+            },
+            okText: '返回首页'
+        })
     }
     dataSource.value = result.data.list
 }
