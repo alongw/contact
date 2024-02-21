@@ -302,6 +302,19 @@ onMounted(() => {
                 </a-typography-paragraph>
             </li>
             <li>
+                <h3>宣传页</h3>
+                <a-typography-paragraph>
+                    <a-typography-link
+                        :href="'https://contact.alongw.cn/i/' + modal.data.iid"
+                        target="_blank"
+                        copyable
+                    >
+                        https://contact.alongw.cn/i/{{ modal.data.iid }}
+                    </a-typography-link>
+                    <a-qrcode :value="'https://contact.alongw.cn/i/' + modal.data.iid" />
+                </a-typography-paragraph>
+            </li>
+            <li>
                 <h3>名称</h3>
                 <a-typography-paragraph v-model:content="modal.data.name" editable />
             </li>
