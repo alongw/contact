@@ -125,7 +125,7 @@ router.put(
         }>,
         res
     ) => {
-        if (!req.body?.iid || !req.body?.name || !req.body?.desc) {
+        if (!req.body?.iid || !req.body?.name) {
             return res.send({ status: 400, msg: '参数不能为空' })
         }
 
@@ -141,7 +141,8 @@ router.put(
             }
 
             await result.update({
-                name: req.body.name
+                name: req.body.name,
+                desc: req.body.desc ? req.body.desc : null
             })
         } catch (error) {
             logger.error(error)

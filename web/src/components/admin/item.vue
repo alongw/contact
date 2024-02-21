@@ -29,7 +29,7 @@ const form = reactive({
 const addButtonLoading = ref(false)
 
 const onFinish = async () => {
-    if (!form.name || !form.desc) {
+    if (!form.name) {
         return message.error('请填写完整')
     }
     addButtonLoading.value = true
