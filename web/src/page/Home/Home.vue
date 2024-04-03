@@ -17,12 +17,12 @@ const activeKey = ref(['1'])
         <a-collapse v-model:activeKey="activeKey">
             <a-collapse-panel key="1" header="Telegram">
                 <a-space direction="vertical">
-                    <a-button type="link" href="https://t.me/alongw" target="_blank">
-                        @alongw
+                    <a-button type="link" href="https://t.me/chinololi" target="_blank">
+                        @chinololi
                     </a-button>
                     <a-button
                         type="link"
-                        href="https://see.loliis.top/t.me/alongw"
+                        href="https://see.loliis.top/t.me/chinololi"
                         target="_blank"
                     >
                         中国大陆镜像链接
