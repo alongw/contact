@@ -9,9 +9,9 @@
         "url": "https://github.com/alongw/contact.git"
     },
     "scripts": {
-        "dev": "nodemon --config nodemon.json",
+        "dev": "pnpm exec nodemon --config nodemon.json",
         "start": "tsx ./src/app.ts",
-        "build": "npx webpack"
+        "build": "pnpm exec webpack"
     },
     "devDependencies": {
         "@types/cors": "^2.8.17",

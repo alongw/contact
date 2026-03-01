@@ -9,13 +9,15 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist",
+        "rootDir": "src",
         "baseUrl": "src",
         "typeRoots": ["node_modules/@types"],
         "types": ["node"],
         "skipLibCheck": true,
         "paths": {
             "@/*": ["*"]
-        }
+        },
+        "ignoreDeprecations": "6.0"
     },
     "include": ["src/**/*"]
 }
